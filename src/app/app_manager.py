@@ -24,6 +24,15 @@ class AppManager:
         # Connect ExplorerButtonVMenu to toggle MenuContext
         if hasattr(self.main_window, 'ExplorerButtonVMenu'):
             self.main_window.ExplorerButtonVMenu.clicked.connect(self._toggle_menu_context)
+        # Connect ChatSendButton to chat handler
+        if hasattr(self.main_window, 'ChatSendButton') and hasattr(self.main_window, 'ChatInput') and hasattr(self.main_window, 'ChatResponse'):
+            from src.actions.chat_action import ChatAction
+            self.chat_action = ChatAction(self.main_window.ChatResponse)
+            def handle_chat_send():
+                user_message = self.main_window.ChatInput.text()
+                self.main_window.ChatInput.clear()
+                self.chat_action.handle_send(user_message)
+            self.main_window.ChatSendButton.clicked.connect(handle_chat_send)
 
     def handle_create_project(self):
         folder = self._get_folder_from_create()
@@ -62,9 +71,18 @@ class AppManager:
         # Hide all columns except file name
         for col in range(1, self.tree_model.columnCount()):
             self.tree_view.hideColumn(col)
-        if hasattr(self.main_window, 'ContextlLabel'):
-            self.main_window.ContextlLabel.setText('Explorer')
-        self.main_window.MenuContext.addWidget(self.tree_view)
+        # Update context label for Explorer
+        if hasattr(self.main_window, 'ContextLabel'):
+            self.main_window.ContextLabel.setText('Explorer')
+        # Add tree view to ExplorerPage in ContextStack
+        if hasattr(self.main_window, 'ContextStack') and hasattr(self.main_window, 'ExplorerPage'):
+            # Remove previous tree if exists
+            for i in reversed(range(self.main_window.ExplorerLayout.count())):
+                widget = self.main_window.ExplorerLayout.itemAt(i).widget()
+                if widget is not None:
+                    widget.setParent(None)
+            self.main_window.ExplorerLayout.addWidget(self.tree_view)
+            self.main_window.ContextStack.setCurrentWidget(self.main_window.ExplorerPage)
 
         # Add tab widget above editor area if not already added
         if not hasattr(self.main_window, 'editorTabWidget'):

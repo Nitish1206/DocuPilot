@@ -4,6 +4,9 @@ import os
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from src.app.app_manager import AppManager
 
+from dotenv import load_dotenv
+load_dotenv()
+
 UI_FILE = 'src/designer/UI/docueditor.ui'
 PY_UI_FILE = 'src/designer/PY/doceditor_ui.py'
 

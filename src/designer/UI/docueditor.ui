@@ -16,64 +16,133 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="centralLayout">
     <item>
-    <widget class="QSplitter" name="mainSplitter">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
+     <widget class="QSplitter" name="mainSplitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
       <widget class="QWidget" name="leftPanel">
-       <layout class="QVBoxLayout" name="leftLayout">
+       <layout class="QHBoxLayout" name="leftLayout">
         <item>
-         <widget class="QPushButton" name="ExplorerButtonVMenu">
-          <property name="text">
-           <string>Explorer</string>
-          </property>
-         </widget>
+         <layout class="QVBoxLayout" name="buttonLayout">
+          <item>
+           <widget class="QPushButton" name="ExplorerButtonVMenu">
+            <property name="text">
+             <string>Explorer</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="SearchButtonVMenu">
+            <property name="text">
+             <string>Search</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="TrackChangeVMenu">
+            <property name="text">
+             <string>Track Change</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="SearchButtonVMenu">
-          <property name="text">
-           <string>Search</string>
-          </property>
-         </widget>
+         <layout class="QVBoxLayout" name="dynamicContentLayout">
+          <item>
+           <widget class="QLabel" name="ContextLabel">
+            <property name="text">
+             <string>Explorer</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QStackedWidget" name="ContextStack">
+            <widget class="QWidget" name="ExplorerPage">
+             <layout class="QVBoxLayout" name="ExplorerLayout">
+              <item>
+               <widget class="QLabel" name="ExplorerContent">
+                <property name="text">
+                 <string>Explorer Content</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="SearchPage">
+             <layout class="QVBoxLayout" name="SearchLayout">
+              <item>
+               <widget class="QLabel" name="SearchContent">
+                <property name="text">
+                 <string>Search and Replace Content</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="SearchInput">
+                <property name="placeholderText">
+                 <string>Search...</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="ReplaceInput">
+                <property name="placeholderText">
+                 <string>Replace...</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="ReplaceButton">
+                <property name="text">
+                 <string>Replace</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+          </item>
+         </layout>
         </item>
-        <item>
-         <widget class="QPushButton" name="TrackChangeVMenu">
-          <property name="text">
-           <string>Track Change</string>
-          </property>
-         </widget>
-        </item>
-    <item>
-     <layout class="QVBoxLayout" name="MenuContext">
-      <item>
-       <widget class="QLabel" name="ContextlLabel">
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="ChatInput">
-      <property name="placeholderText">
-       <string>Ask OpenAI...</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="ChatSendButton">
-      <property name="text">
-       <string>Send</string>
-      </property>
-     </widget>
-    </item>
        </layout>
       </widget>
       <widget class="QWidget" name="editorPanel">
        <layout class="QVBoxLayout" name="editorLayout">
         <item>
          <widget class="QTabWidget" name="editorTabWidget"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="chatPanel">
+       <layout class="QVBoxLayout" name="chatLayout">
+        <item>
+         <widget class="QLabel" name="ChatLabel">
+          <property name="text">
+           <string>DocuPilot Chat</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="ChatResponse">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ChatInput">
+          <property name="placeholderText">
+           <string>Ask OpenAI...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="ChatSendButton">
+          <property name="text">
+           <string>Send</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>

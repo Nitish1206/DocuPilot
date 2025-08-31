@@ -26,8 +26,7 @@ class MCPDocumentAgent:
                 await session.initialize()
                 result = await session.call_tool(
                     "update_document",
-                    {"file_path": file_path, "new_content": user_command}
-                )
+                    {"file_path": file_path, "new_content": user_command}               )
                 if result.isError:
                     return False, result.content[0].text
                 return True, result.content[0].text
